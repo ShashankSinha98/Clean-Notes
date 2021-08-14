@@ -12,7 +12,7 @@ import com.example.cleannotes.business.domain.state.*
 
 abstract class CacheResponseHandler<ViewState, Data>(
     private val response: CacheResult<Data?>,
-    private val stateEvent: StateEvent
+    private val stateEvent: StateEvent?
 ) {
 
     suspend fun getResult(): DataState<ViewState>? {
@@ -22,7 +22,7 @@ abstract class CacheResponseHandler<ViewState, Data>(
             is CacheResult.GenericError ->
                 DataState.error(
                     response = Response(
-                        message = "${stateEvent.errorInfo()}\n\n" +
+                        message = "${stateEvent?.errorInfo()}\n\n" +
                                 "Reason: ${response.errorMessage}",
                         uiComponentType =  UIComponentType.Dialog(),
                         messageType = MessageType.Error()
@@ -34,7 +34,7 @@ abstract class CacheResponseHandler<ViewState, Data>(
                 if(response.value==null) {
                     DataState.error(
                         response = Response(
-                            message = "${stateEvent.errorInfo()}\n\n" +
+                            message = "${stateEvent?.errorInfo()}\n\n" +
                                     "Reason: ${CACHE_DATA_NULL}",
                             uiComponentType =  UIComponentType.Dialog(),
                             messageType = MessageType.Error()
@@ -48,5 +48,5 @@ abstract class CacheResponseHandler<ViewState, Data>(
         }
     }
 
-    abstract fun handleSuccess(resultObj: Data): DataState<ViewState>
+    abstract suspend fun handleSuccess(resultObj: Data): DataState<ViewState>?
 }

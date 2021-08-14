@@ -15,28 +15,28 @@ class NoteCacheDataSourceImpl
     private val noteDaoService: NoteDaoService
 ): NoteCacheDataSource {
 
-    override suspend fun insertNote(note: Note)
+    override suspend fun insertNote(note: Note): Long
             = noteDaoService.insertNote(note)
 
-    override suspend fun deleteNote(primaryKey: String)
+    override suspend fun deleteNote(primaryKey: String): Int
             = noteDaoService.deleteNote(primaryKey)
 
-    override suspend fun deleteNotes(notes: List<Note>)
+    override suspend fun deleteNotes(notes: List<Note>): Int
             = noteDaoService.deleteNotes(notes)
 
-    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String)
+    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String): Int
             = noteDaoService.updateNote(primaryKey, newTitle, newBody)
 
-    override suspend fun serachNotes(query: String, filterAndOrder: String, page: Int)
+    override suspend fun serachNotes(query: String, filterAndOrder: String, page: Int): List<Note>
             = noteDaoService.serachNotes(query, filterAndOrder, page)
 
-    override suspend fun searchNoteById(primaryKey: String)
+    override suspend fun searchNoteById(primaryKey: String): Note?
             = noteDaoService.searchNoteById(primaryKey)
 
-    override suspend fun getNumNotes()
+    override suspend fun getNumNotes(): Int
             = noteDaoService.getNumNotes()
 
-    override suspend fun insertNotes(notes: List<Note>)
+    override suspend fun insertNotes(notes: List<Note>): LongArray
             = noteDaoService.insertNotes(notes)
 
 }
