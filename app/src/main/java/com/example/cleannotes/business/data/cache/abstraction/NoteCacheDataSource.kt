@@ -19,7 +19,7 @@ interface NoteCacheDataSource {
 
     suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String): Int
 
-    suspend fun serachNotes(
+    suspend fun searchNotes(
         query: String,
         filterAndOrder: String,
         page: Int

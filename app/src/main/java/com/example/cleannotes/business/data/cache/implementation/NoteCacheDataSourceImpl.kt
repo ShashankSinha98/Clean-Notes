@@ -2,6 +2,7 @@ package com.example.cleannotes.business.data.cache.implementation
 
 import com.example.cleannotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.example.cleannotes.business.domain.model.Note
+import com.example.cleannotes.framework.datasource.cache.abstraction.NoteDaoService
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,8 +28,8 @@ class NoteCacheDataSourceImpl
     override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String): Int
             = noteDaoService.updateNote(primaryKey, newTitle, newBody)
 
-    override suspend fun serachNotes(query: String, filterAndOrder: String, page: Int): List<Note>
-            = noteDaoService.serachNotes(query, filterAndOrder, page)
+    override suspend fun searchNotes(query: String, filterAndOrder: String, page: Int): List<Note>
+            = TODO("Check filterAndOrder and make query")
 
     override suspend fun searchNoteById(primaryKey: String): Note?
             = noteDaoService.searchNoteById(primaryKey)
