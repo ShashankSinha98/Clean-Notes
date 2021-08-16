@@ -25,7 +25,7 @@ class NoteCacheDataSourceImpl
     override suspend fun deleteNotes(notes: List<Note>): Int
             = noteDaoService.deleteNotes(notes)
 
-    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String): Int
+    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String?): Int
             = noteDaoService.updateNote(primaryKey, newTitle, newBody)
 
     override suspend fun searchNotes(query: String, filterAndOrder: String, page: Int): List<Note>

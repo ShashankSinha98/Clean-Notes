@@ -11,7 +11,7 @@ fun printLogD(className: String?, message: String ) {
         Log.d(TAG, "$className: $message")
     }
     else if(DEBUG && isUnitTest){
-        println("$className: $message")
+        println("$className: $message") // cannot use logs statement in unit test
     }
 }
 
