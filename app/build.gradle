@@ -51,6 +51,8 @@ dependencies {
     implementation Dependencies.kotlin_coroutines_play_services
     implementation Dependencies.kotlin_coroutines
     implementation Dependencies.kotlin_coroutines_android
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_gson
 
     // dependencies
     implementation Dependencies.dagger

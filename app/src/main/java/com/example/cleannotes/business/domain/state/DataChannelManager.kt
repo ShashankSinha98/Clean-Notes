@@ -1,4 +1,5 @@
 package com.example.cleannotes.business.domain.state
+import com.example.cleannotes.util.printLogD
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -47,7 +48,6 @@ abstract class DataChannelManager<ViewState> {
     private fun offerToDataChannel(dataState: DataState<ViewState>){
         dataChannel.let {
             if(!it.isClosedForSend){
-                printLogD("DCM", "offer to channel!")
                 it.offer(dataState)
             }
         }
@@ -58,7 +58,6 @@ abstract class DataChannelManager<ViewState> {
         jobFunction: Flow<DataState<ViewState>?>
     ){
         if(canExecuteNewStateEvent(stateEvent)){
-            printLogD("DCM", "launching job: ${stateEvent.eventName()}")
             addStateEvent(stateEvent)
             jobFunction
                 .onEach { dataState ->
