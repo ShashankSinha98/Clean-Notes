@@ -129,7 +129,7 @@ class SearchNotesTest {
         })
 
         // confirm nothing was retrieved
-        assertTrue { results?.run { size == 0 }?: true }
+        assertTrue { results?.run { size == 0 }?: true } // either list is empty or null - in both case, nothing is returned
 
         // confirm there is notes in the cache
         val notesInCache = noteCacheDataSource.searchNotes(
@@ -164,7 +164,6 @@ class SearchNotesTest {
                 value?.data?.noteList?.let { list ->
                     results = ArrayList(list)
                 }
-                println("results: ${results}")
             }
         })
 
