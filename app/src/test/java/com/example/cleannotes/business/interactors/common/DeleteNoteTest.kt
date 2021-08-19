@@ -8,9 +8,7 @@ import com.example.cleannotes.business.domain.model.NoteFactory
 import com.example.cleannotes.business.domain.state.DataState
 import com.example.cleannotes.business.interactors.common.DeleteNote.Companion.DELETE_NOTE_FAILED
 import com.example.cleannotes.business.interactors.common.DeleteNote.Companion.DELETE_NOTE_SUCCESS
-import com.example.cleannotes.business.interactors.notelist.InsertNewNote
 import com.example.cleannotes.di.DependencyContainer
-import com.example.cleannotes.framework.presentation.notelist.state.NoteListStateEvent
 import com.example.cleannotes.framework.presentation.notelist.state.NoteListStateEvent.*
 import com.example.cleannotes.framework.presentation.notelist.state.NoteListViewState
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -101,7 +99,7 @@ class DeleteNoteTest {
     fun deleteNote_fail_confirmNetworkUnchanged() =  runBlocking {
 
         // create a note to delete that doesn't exist in data set
-        val noteToDelete = noteFactory.creatingSingleNote(
+        val noteToDelete = noteFactory.createSingleNote(
             title = UUID.randomUUID().toString()
         )
 
@@ -134,7 +132,7 @@ class DeleteNoteTest {
 
 
         // create a note to delete that will throw exception
-        val noteToDelete = noteFactory.creatingSingleNote(
+        val noteToDelete = noteFactory.createSingleNote(
             id = FORCE_DELETE_NOTE_EXCEPTION,
             title = UUID.randomUUID().toString()
         )

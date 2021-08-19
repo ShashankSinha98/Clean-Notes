@@ -35,37 +35,37 @@ class DeleteMultipleNotes(
 
         val successfulDeletes: ArrayList<Note> = ArrayList() // notes that were successfully deleted
 
-        for(note in notes) {
-
-            val cacheResult: CacheResult<Int?> = safeCacheCall(IO) {
+        for(note in notes){
+            val cacheResult = safeCacheCall(IO){
                 noteCacheDataSource.deleteNote(note.id)
             }
 
-            val cacheResponse: DataState<NoteListViewState>?
-                = object : CacheResponseHandler<NoteListViewState, Int>(
-                    response = cacheResult,
-                    stateEvent = stateEvent
-                ) {
-
+            val response = object: CacheResponseHandler<NoteListViewState, Int>(
+                response = cacheResult,
+                stateEvent = stateEvent
+            ){
                 override suspend fun handleSuccess(resultObj: Int): DataState<NoteListViewState>? {
-                    if(resultObj<0) { //error
+                    if(resultObj < 0){ // if error
                         onDeleteError = true
-                    } else {
+                    }
+                    else{
                         successfulDeletes.add(note)
                     }
-
                     return null
                 }
-
             }.getResult()
 
-            if(cacheResponse?.stateMessage?.response?.message?.contains(stateEvent.errorInfo())==true) {
+            // check for random errors
+            if(response?.stateMessage?.response?.message
+                    ?.contains(stateEvent.errorInfo()) == true){
                 onDeleteError = true
             }
 
+        }
 
-            if(onDeleteError) {
-                emit(DataState.data<NoteListViewState>(
+        if(onDeleteError){
+            emit(
+                DataState.data<NoteListViewState>(
                     response = Response(
                         message = DELETE_NOTES_ERRORS,
                         uiComponentType = UIComponentType.Dialog(),
@@ -73,9 +73,12 @@ class DeleteMultipleNotes(
                     ),
                     data = null,
                     stateEvent = stateEvent
-                ))
-            } else {
-                emit(DataState.data<NoteListViewState>(
+                )
+            )
+        }
+        else{
+            emit(
+                DataState.data<NoteListViewState>(
                     response = Response(
                         message = DELETE_NOTES_SUCCESS,
                         uiComponentType = UIComponentType.Toast(),
@@ -83,36 +86,33 @@ class DeleteMultipleNotes(
                     ),
                     data = null,
                     stateEvent = stateEvent
-                ))
-            }
-
-
+                )
+            )
         }
 
         updateNetwork(successfulDeletes)
 
     }
 
-    private suspend fun updateNetwork(successfulDeletes: ArrayList<Note>){
-        for (note in successfulDeletes){
+    private suspend fun updateNetwork(successfulDeletes: ArrayList<Note>) {
+        for (note in successfulDeletes) {
 
             // delete from "notes" node
-            safeApiCall(IO){
+            safeApiCall(IO) {
                 noteNetworkDataSource.deleteNote(note.id)
             }
 
             // insert into "deletes" node
-            safeApiCall(IO){
+            safeApiCall(IO) {
                 noteNetworkDataSource.insertDeletedNote(note)
             }
         }
     }
 
-    companion object{
+    companion object {
         val DELETE_NOTES_SUCCESS = "Successfully deleted notes."
         val DELETE_NOTES_ERRORS = "Not all the notes you selected were deleted. There was some errors."
         val DELETE_NOTES_YOU_MUST_SELECT = "You haven't selected any notes to delete."
         val DELETE_NOTES_ARE_YOU_SURE = "Are you sure you want to delete these?"
     }
-
 }

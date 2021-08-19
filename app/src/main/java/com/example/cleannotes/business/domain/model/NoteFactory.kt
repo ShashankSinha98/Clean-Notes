@@ -16,7 +16,7 @@ class NoteFactory
     private val dateUtil: DateUtil
 ){
 
-    fun creatingSingleNote(
+    fun createSingleNote(
         id: String?= null,
         title: String,
         body: String?= null
@@ -37,7 +37,7 @@ class NoteFactory
 
         for(i in 0 until numNotes) {
             list.add(
-                creatingSingleNote(
+                createSingleNote(
                     id= null,
                     title = UUID.randomUUID().toString(),
                     body = UUID.randomUUID().toString()

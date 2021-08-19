@@ -12,7 +12,6 @@ import com.example.cleannotes.framework.presentation.notelist.state.NoteListView
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.net.CacheResponse
 
 class InsertNewNote (
     private val noteCacheDataSource: NoteCacheDataSource,
@@ -26,7 +25,7 @@ class InsertNewNote (
         stateEvent: StateEvent // NoteListStateEvent.InsertNewNoteEvent
     ): Flow<DataState<NoteListViewState>?> = flow {
 
-        val newNote = noteFactory.creatingSingleNote(id, title)
+        val newNote = noteFactory.createSingleNote(id, title)
 
         // return line no if successfully inserted, else -1
         val cacheResult = safeCacheCall(IO) {

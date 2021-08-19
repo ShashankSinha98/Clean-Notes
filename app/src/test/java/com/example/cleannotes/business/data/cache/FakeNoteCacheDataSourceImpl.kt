@@ -42,6 +42,7 @@ constructor(
         else if(primaryKey == FORCE_DELETES_NOTE_EXCEPTION){
             throw Exception("Something went wrong deleting the note.")
         }
+        print("FAILURE!!")
         return notesData.remove(primaryKey)?.let {
             1 // return 1 for success
         }?: - 1 // -1 for failure

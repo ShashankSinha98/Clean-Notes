@@ -15,9 +15,7 @@ import com.example.cleannotes.framework.presentation.notelist.state.NoteListView
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -75,7 +73,7 @@ class InsertNewNoteTest {
     @Test
     fun insertNote_success_confirmNetworkAndCacheUpdated() = runBlocking {
 
-        val newNote = noteFactory.creatingSingleNote(
+        val newNote = noteFactory.createSingleNote(
             id= null,
             title = UUID.randomUUID().toString()
         )
@@ -109,7 +107,7 @@ class InsertNewNoteTest {
     @Test
     fun insertNote_fail_confirmNetworkAndCacheUnchanged() = runBlocking {
 
-        val newNote = noteFactory.creatingSingleNote(
+        val newNote = noteFactory.createSingleNote(
             id= FORCE_GENERAL_FAILURE,
             title = UUID.randomUUID().toString()
         )
@@ -141,7 +139,7 @@ class InsertNewNoteTest {
     @Test
     fun throwException_checkGenericError_confirmNetworkAndCacheUnchanged() = runBlocking {
 
-        val newNote = noteFactory.creatingSingleNote(
+        val newNote = noteFactory.createSingleNote(
             id= FORCE_NEW_NOTE_EXCEPTION,
             title = UUID.randomUUID().toString()
         )
