@@ -1,3 +1,10 @@
+import dependencies.AndroidTestDependencies
+import dependencies.Dependencies
+import dependencies.Application
+import dependencies.Versions
+import dependencies.Java
+import dependencies.SupportDependencies
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -8,13 +15,13 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.cleannotes"
-        minSdk = 28
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Application.id
+        minSdk = Versions.minsdk
+        targetSdk = Versions.targetsdk
+        versionCode = Application.version_code
+        versionName = Application.version_name
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AndroidTestDependencies.instrumentation_runner
     }
 
     buildTypes {
@@ -27,24 +34,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Java.java_version
+        targetCompatibility = Java.java_version
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Java.java_version_str
     }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // kotlin
+    implementation(Dependencies.kotlin_standard_library)
+    implementation(Dependencies.kotlin_reflect)
+    implementation(Dependencies.ktx)
 
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03")
+    // support
+    implementation(SupportDependencies.appcompat)
+    implementation(SupportDependencies.constraintlayout)
+    implementation(SupportDependencies.material_design)
+    implementation(libs.material)
+    implementation(SupportDependencies.swipe_refresh_layout)
 }
