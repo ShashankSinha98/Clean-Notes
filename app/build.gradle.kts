@@ -1,4 +1,5 @@
 import dependencies.AndroidTestDependencies
+import dependencies.AnnotationProcessing
 import dependencies.Dependencies
 import dependencies.Application
 import dependencies.Versions
@@ -8,6 +9,8 @@ import dependencies.SupportDependencies
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -48,6 +51,16 @@ dependencies {
     implementation(Dependencies.kotlin_standard_library)
     implementation(Dependencies.kotlin_reflect)
     implementation(Dependencies.ktx)
+
+    // dependencies
+    implementation(Dependencies.dagger)
+    implementation(Dependencies.firebase_auth)
+    implementation(Dependencies.firebase_analytics)
+    implementation(Dependencies.firebase_firestore)
+    implementation(Dependencies.firebase_crashlytics)
+
+    // Annotation Processing
+    kapt(AnnotationProcessing.dagger_compiler)
 
     // support
     implementation(SupportDependencies.appcompat)
