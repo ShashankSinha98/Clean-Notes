@@ -51,6 +51,9 @@ dependencies {
     implementation(Dependencies.kotlin_standard_library)
     implementation(Dependencies.kotlin_reflect)
     implementation(Dependencies.ktx)
+    implementation(Dependencies.kotlin_coroutines)
+    implementation(Dependencies.kotlin_coroutines_android)
+    implementation(Dependencies.kotlin_coroutines_play_services)
 
     // dependencies
     implementation(Dependencies.dagger)

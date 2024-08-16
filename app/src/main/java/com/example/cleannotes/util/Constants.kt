@@ -1,4 +1,4 @@
-package com.codingwithmitch.cleannotes.util
+package com.example.cleannotes.util
 
 object Constants {
 

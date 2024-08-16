@@ -1,8 +1,8 @@
-package com.codingwithmitch.cleannotes.util
+package com.example.cleannotes.util
 
 import android.util.Log
-import com.codingwithmitch.cleannotes.util.Constants.DEBUG
-import com.codingwithmitch.cleannotes.util.Constants.TAG
+import com.example.cleannotes.util.Constants.DEBUG
+import com.example.cleannotes.util.Constants.TAG
 
 var isUnitTest = false
 
